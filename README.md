@@ -9,6 +9,10 @@ Lilygo TTGO T-display
 * https://randomnerdtutorials.com/esp32-save-data-permanently-preferences/
 * https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/api/preferences.html
 
+## External flash
+
+* W25Q32 (32M-bit)
+
 ## Prerequisites
 
 ESP32
@@ -45,3 +49,13 @@ arduino-cli upload  --fqbn esp32:esp32:esp32 --port /dev/ttyUSB0 Otamat2
 ## box STL
 
 https://github.com/Xinyuan-LilyGO/TTGO-T-Display/blob/master/3d_file/README.md
+
+## Issues
+
+Does not boot properly when powered via 5V pin, until reset by button
+See https://github.com/Xinyuan-LilyGO/TTGO-T-Display/issues/9 but lot of crap in this issue...
+* remove capacitor ? (but it's for debouncing the reset button and providing clean reset at power-up... and with capa on button1, it will consider button1 pressed during boot = DOWNLOAD_BOOT?)
+* try powering via V_Bus ? (to get serial chip powered)
+* maybe board boots but not screen ?
+
+=> cleanest probably is powering via Vbus, to be found...
