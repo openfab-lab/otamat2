@@ -4,7 +4,7 @@
 #include "Button2.h"
 //#include "esp_adc_cal.h"
 //#include "bmp.h"
-#include "TickTwo.h"
+#include <TickTwo.h>
 #include "Free_Fonts.h" // Include the header file attached to this sketch
 #include <Preferences.h>
 
