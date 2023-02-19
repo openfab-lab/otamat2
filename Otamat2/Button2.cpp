@@ -106,10 +106,10 @@ void Button2::loop() {
   if(pin < 0)return;
 
   prev_state = state;
-// Be more sensitive:
-//  state = digitalRead(pin);
-  uint16_t v = analogRead(pin); // SVP/GPIO36/ADC0
-  state = v > 100; // ~0.25V, experimental measurement
+  state = digitalRead(pin);
+// Be more sensitive if using the flying cable:
+//  uint16_t v = analogRead(pin); // SVP/GPIO36/ADC0
+//  state = v > 100; // ~0.25V, experimental measurement
 
   // is button pressed?
   if (prev_state == HIGH && state == LOW) {
