@@ -13,6 +13,12 @@ Lilygo TTGO T-display
 
 * W25Q32 (32M-bit)
 
+## GPIO 5V tolerant?
+
+I've connected directly the 5V TTL of the BlackBox to pin 36 of the TTGO.
+
+Should be fine as per https://www.letscontrolit.com/forum/viewtopic.php?t=8845
+
 ## Prerequisites
 
 ESP32
