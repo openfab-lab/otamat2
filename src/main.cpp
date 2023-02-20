@@ -1,9 +1,10 @@
+#include <Arduino.h>
 #include <TFT_eSPI.h>
-//#include <SPI.h>
 #include <Button2.h>
 #include <TickTwo.h>
 #include <Preferences.h>
-#include "Free_Fonts.h" // Include the header file attached to this sketch
+#include "Free_Fonts.h"               // Include the header file attached to this sketch
+//#include <SPI.h>
 
 #if USER_SETUP_ID != 25
   #error "TFT_eSPI must be configured for TTGO T-display"
