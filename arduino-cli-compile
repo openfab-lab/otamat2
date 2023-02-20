@@ -1,11 +1,11 @@
 #!/bin/bash
 
-CPPFLAGS=""
+# Flags to allow include files in platformio include dir
+CPPFLAGS="-Iinclude"
 
 # Misc, needed?
 CPPFLAGS+=" -Os"
 CPPFLAGS+=" -DCORE_DEBUG_LEVEL=ARDUHAL_LOG_LEVEL_DEBUG"
-
 # TFT_eSPI flags as we are using the generic TFT_eSPI, cf TFT_eSPI/User_Setups/Setup25_TTGO_T_Display.h
 CPPFLAGS+=" -DUSER_SETUP_LOADED=1"
 CPPFLAGS+=" -DUSER_SETUP_ID=25"
