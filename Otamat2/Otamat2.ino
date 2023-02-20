@@ -1,12 +1,9 @@
 #include <TFT_eSPI.h>
 //#include <SPI.h>
-//#include <Wire.h>
-#include "Button2.h"
-//#include "esp_adc_cal.h"
-//#include "bmp.h"
+#include <Button2.h>
 #include <TickTwo.h>
-#include "Free_Fonts.h" // Include the header file attached to this sketch
 #include <Preferences.h>
+#include "Free_Fonts.h" // Include the header file attached to this sketch
 
 // TFT Pins has been set in the TFT_eSPI library in the User Setup file TTGO_T_Display.h
 // #define TFT_MOSI            19

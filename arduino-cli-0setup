@@ -1,0 +1,8 @@
+#!/bin/bash
+
+arduino-cli core update-index           --additional-urls https://dl.espressif.com/dl/package_esp32_index.json
+arduino-cli core install esp32:esp32    --additional-urls https://dl.espressif.com/dl/package_esp32_index.json
+
+arduino-cli lib install TFT_eSPI
+arduino-cli lib install Button2
+arduino-cli lib install TickTwo
