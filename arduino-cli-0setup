@@ -3,6 +3,9 @@
 arduino-cli core update-index           --additional-urls https://dl.espressif.com/dl/package_esp32_index.json
 arduino-cli core install esp32:esp32    --additional-urls https://dl.espressif.com/dl/package_esp32_index.json
 
+# We'll use official TFT_eSPI from https://github.com/Bodmer/TFT_eSPI but with TTGO T-display settings from https://github.com/Xinyuan-LilyGO/TTGO-T-Display/tree/master/TFT_eSPI (cf defines in arduino-cli-compile)
 arduino-cli lib install TFT_eSPI
+# https://github.com/LennartHennigs/Button2
 arduino-cli lib install Button2
+# https://github.com/sstaub/TickTwo
 arduino-cli lib install TickTwo

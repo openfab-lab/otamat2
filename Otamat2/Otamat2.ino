@@ -5,13 +5,9 @@
 #include <Preferences.h>
 #include "Free_Fonts.h" // Include the header file attached to this sketch
 
-// TFT Pins has been set in the TFT_eSPI library in the User Setup file TTGO_T_Display.h
-// #define TFT_MOSI            19
-// #define TFT_SCLK            18
-// #define TFT_CS              5
-// #define TFT_DC              16
-// #define TFT_RST             23
-// #define TFT_BL              4   // Display backlight control pin
+#if USER_SETUP_ID != 25
+  #error "TFT_eSPI must be configured for TTGO T-display"
+#endif
 
 void printCounter();
 TickTwo timer1(printCounter, 1000, 0, MILLIS);
@@ -126,7 +122,3 @@ void loop()
     button_loop();
     timer1.update();
 }
-
-#ifndef LOAD_GFXFF
-ERROR_Please_enable_LOAD_GFXFF_in_User_Setup!
-#endif
