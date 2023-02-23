@@ -92,6 +92,21 @@ $ ./arduino-cli-compile
 $ ./arduino-cli-upload
 ```
 
+## Platform.io
+
+### Prerequisites
+
+Everything needed is defined in `./platformio.ini`
+
+### Compilation and flashing
+
+```sh
+source ~/.platformio/penv/bin/activate
+pio run
+pio run --target upload
+deactivate
+```
+
 ## Help wanted
 It could be cool to make a nice case.
 like this one:
@@ -103,3 +118,4 @@ check this issue for more details: [https://github.com/openfab-lab/otamat2/issue
 
 - [Does not boot properly when powered via 5V pin,](https://github.com/openfab-lab/otamat2/issues/2) until reset by button.
 - **TODO**: it should be possible to tell the button logic is inverted from the constructor of newer Button2 versions.
+- **TODO:** Platformio settings: make sure to disable PSRAM, and set proper flash size
