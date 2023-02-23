@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ~/.platformio/penv/bin/activate
+pio run --target upload
+# deactivate

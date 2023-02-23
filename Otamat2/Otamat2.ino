@@ -3,7 +3,7 @@
 #include <Button2.h>
 #include <TickTwo.h>
 #include <Preferences.h>
-#include "Free_Fonts.h" // Include the header file attached to this sketch
+#include "Free_Fonts.h"  // Include the header file attached to this sketch
 
 #if USER_SETUP_ID != 25
   #error "TFT_eSPI must be configured for TTGO T-display"
