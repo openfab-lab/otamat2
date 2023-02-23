@@ -98,6 +98,8 @@ $ ./arduino-cli-upload
 
 Everything needed is defined in `./platformio.ini`
 
+See https://docs.platformio.org/en/latest/platforms/espressif32.html for details.
+
 ### Compilation and flashing
 
 ```sh
@@ -117,4 +119,4 @@ check this issue for more details: [https://github.com/openfab-lab/otamat2/issue
 ### Issues
 
 - [Does not boot properly when powered via 5V pin,](https://github.com/openfab-lab/otamat2/issues/2) until reset by button.
-- **TODO:** Platformio settings: make sure to disable PSRAM, and set proper flash size
+- **TODO:** Platformio settings: set proper flash size (default is 4Mb, should be possible to set 16Mb with `board_upload.flash_size = 16MB` and `board_upload.maximum_size = 16777216`)
