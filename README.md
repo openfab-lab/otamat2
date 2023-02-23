@@ -117,5 +117,4 @@ check this issue for more details: [https://github.com/openfab-lab/otamat2/issue
 ### Issues
 
 - [Does not boot properly when powered via 5V pin,](https://github.com/openfab-lab/otamat2/issues/2) until reset by button.
-- **TODO**: it should be possible to tell the button logic is inverted from the constructor of newer Button2 versions.
 - **TODO:** Platformio settings: make sure to disable PSRAM, and set proper flash size

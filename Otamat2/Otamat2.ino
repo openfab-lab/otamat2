@@ -21,8 +21,7 @@ TickTwo timer1(printCounter, 1000, 0, MILLIS);
 TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
 //Button2 btn1(BUTTON_1);
 Button2 btn2(BUTTON_2);
-Button2 btnadc(BUTTON_ADC);
-
+Button2 btnadc(BUTTON_ADC, buttonMode = INPUT_PULLDOWN, activeLow = false);
 char buff[512];
 int vref = 1100;
 
@@ -36,10 +35,10 @@ void button_init()
     });
     // Logic is inverted !
     btnadc.setPressedHandler([](Button2 & b) {
-        timer1.pause();
+        timer1.resume();
     });
     btnadc.setReleasedHandler([](Button2 & b) {
-        timer1.resume();
+        timer1.pause();
     });
 }
 /////////////////////////////////////////////////////////////////
@@ -82,7 +81,7 @@ void setup()
     min_counter = preferences.getULong("min", 15600);
     last_stored_min_counter = min_counter;
     printCounter();
-    if (! btnadc.isPressed()) { // Logic is inverted!
+    if (btnadc.isPressed()) { // Logic is inverted!
         timer1.resume();
     };
 }
