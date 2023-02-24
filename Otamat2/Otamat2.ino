@@ -33,7 +33,6 @@ void button_init()
     btn2.setReleasedHandler([](Button2 & b) {
         timer1.pause();
     });
-    // Logic is inverted !
     btnadc.setPressedHandler([](Button2 & b) {
         timer1.resume();
     });
