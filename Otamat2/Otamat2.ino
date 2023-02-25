@@ -21,7 +21,7 @@ TickTwo timer1(printCounter, 1000, 0, MILLIS);
 TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
 //Button2 btn1(BUTTON_1);
 Button2 btn2(BUTTON_2);
-Button2 btnadc(BUTTON_ADC, buttonMode = INPUT_PULLDOWN, activeLow = false);
+Button2 btnadc(BUTTON_ADC, INPUT_PULLDOWN, false);
 char buff[512];
 int vref = 1100;
 
