@@ -6,7 +6,7 @@
 #include "Free_Fonts.h"  // Include the header file attached to this sketch
 
 #if USER_SETUP_ID != 25
-  #error "TFT_eSPI must be configured for TTGO T-display"
+#error "TFT_eSPI must be configured for TTGO T-display"
 #endif
 
 void printCounter();
@@ -25,25 +25,23 @@ Button2 btnadc(BUTTON_ADC, INPUT_PULLDOWN, false);
 char buff[512];
 int vref = 1100;
 
-void button_init()
-{
-    btn2.setPressedHandler([](Button2 & b) {
+void button_init() {
+    btn2.setPressedHandler([](Button2 &b) { // *NOPAD*
         timer1.resume();
     });
-    btn2.setReleasedHandler([](Button2 & b) {
+    btn2.setReleasedHandler([](Button2 &b) { // *NOPAD*
         timer1.pause();
     });
-    btnadc.setPressedHandler([](Button2 & b) {
+    btnadc.setPressedHandler([](Button2 &b) { // *NOPAD*
         timer1.resume();
     });
-    btnadc.setReleasedHandler([](Button2 & b) {
+    btnadc.setReleasedHandler([](Button2 &b) { // *NOPAD*
         timer1.pause();
     });
 }
 /////////////////////////////////////////////////////////////////
 
-void button_loop()
-{
+void button_loop() {
 //    btn1.loop();
     btn2.loop();
     btnadc.loop();
@@ -53,9 +51,8 @@ Preferences preferences;
 unsigned long min_counter = 0;
 unsigned long last_stored_min_counter = 0;
 
-void setup()
-{
-    preferences.begin("otamat", false); 
+void setup() {
+    preferences.begin("otamat", false);
     Serial.begin(115200);
     Serial.println("Start");
     timer1.start();
@@ -86,37 +83,36 @@ void setup()
 }
 
 void printCounter() {
-  Serial.print("Counter ");
-  unsigned long sec_counter = timer1.counter() + (min_counter * 60);
-  int xpos = tft.width() / 2; // Half the screen width
-  int ypos = 0;
-  tft.setFreeFont(GLCD);
-  tft.setTextDatum(TC_DATUM); // Centre text on x,y position
-  bool committed = false;
-  if (sec_counter/60 > last_stored_min_counter) {
-    preferences.putULong("min", sec_counter/60);
-    last_stored_min_counter = preferences.getULong("min");
-    committed = true;
-  }
+    Serial.print("Counter ");
+    unsigned long sec_counter = timer1.counter() + (min_counter * 60);
+    int xpos = tft.width() / 2; // Half the screen width
+    int ypos = 0;
+    tft.setFreeFont(GLCD);
+    tft.setTextDatum(TC_DATUM); // Centre text on x,y position
+    bool committed = false;
+    if (sec_counter / 60 > last_stored_min_counter) {
+        preferences.putULong("min", sec_counter / 60);
+        last_stored_min_counter = preferences.getULong("min");
+        committed = true;
+    }
 
-  String sec_counter_string = String(sec_counter) + " s";
-  String min_counter_string = String(sec_counter/60) + " min";
-  Serial.println(sec_counter_string);
+    String sec_counter_string = String(sec_counter) + " s";
+    String min_counter_string = String(sec_counter / 60) + " min";
+    Serial.println(sec_counter_string);
 
-  ypos = 10;
-  tft.drawString(sec_counter_string, xpos, ypos, GFXFF);
-  ypos += tft.fontHeight(GFXFF) + 20;
-  tft.setFreeFont(FSB12);
-  tft.drawString(min_counter_string, xpos, ypos, GFXFF);
-  ypos += tft.fontHeight(GFXFF) + 15;
+    ypos = 10;
+    tft.drawString(sec_counter_string, xpos, ypos, GFXFF);
+    ypos += tft.fontHeight(GFXFF) + 20;
+    tft.setFreeFont(FSB12);
+    tft.drawString(min_counter_string, xpos, ypos, GFXFF);
+    ypos += tft.fontHeight(GFXFF) + 15;
 //  String sv = String(analogRead(36));
 //  String debug_string = "DBG: " + (committed ? " EEPROM":"*****");
 //  tft.setFreeFont(GLCD);
 //  tft.drawString(debug_string, xpos, ypos, GFXFF);
 }
 
-void loop()
-{
+void loop() {
     button_loop();
     timer1.update();
 }
