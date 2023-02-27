@@ -34,4 +34,4 @@ CPPFLAGS+=" -DSPI_READ_FREQUENCY=6000000"
 # TFT_eSPI flag to avoid warning as there is no touchscreen
 CPPFLAGS+=" -DTOUCH_CS=-1"
 
-arduino-cli compile --fqbn esp32:esp32:esp32:PSRAM=disabled,FlashSize=4M --build-property "compiler.cpp.extra_flags=$CPPFLAGS" Otamat2
+arduino-cli compile --fqbn esp32:esp32:esp32:PSRAM=disabled,FlashSize=4M --build-property "compiler.cpp.extra_flags=$CPPFLAGS" src
