@@ -1,3 +1,6 @@
 #!/bin/bash
 
-arduino-cli upload  --fqbn esp32:esp32:esp32 --port /dev/ttyUSB0 src
+# T-display with CH340K
+[ -c /dev/ttyUSB0 ] && arduino-cli upload  --fqbn esp32:esp32:esp32 --port /dev/ttyUSB0 src
+# T-display with CH9102F
+[ -c /dev/ttyACM0 ] && arduino-cli upload  --fqbn esp32:esp32:esp32 --port /dev/ttyACM0 src
