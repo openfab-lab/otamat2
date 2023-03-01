@@ -19,24 +19,46 @@ TickTwo timer1(printCounter, 1000, 0, MILLIS);
 #define BUTTON_ADC          36
 
 TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
+TFT_eSprite img = TFT_eSprite(&tft);  // Create Sprite object "img" with pointer to "tft" object
+                                      // the pointer is used by pushSprite() to push it onto the TFT
+
 //Button2 btn1(BUTTON_1);
 Button2 btn2(BUTTON_2);
 Button2 btnadc(BUTTON_ADC, INPUT_PULLDOWN, false);
 char buff[512];
 int vref = 1100;
 
+void drawLaser(bool on) {
+  // Size of sprite
+  #define IWIDTH  20
+  #define IHEIGHT 20
+  img.setColorDepth(8);
+  img.createSprite(IWIDTH, IHEIGHT);
+  img.fillSprite(TFT_NAVY);
+  img.fillSmoothCircle( IWIDTH/2, IHEIGHT/2, IWIDTH/2-2, on ? TFT_RED : TFT_BLACK);
+  // Push sprite to TFT screen CGRAM at coordinate x,y (top left corner)
+  // All navy pixels will not be drawn hence will show as "transparent"
+  img.pushSprite(5, 5, TFT_NAVY);
+  // Delete sprite to free up the RAM
+  img.deleteSprite();
+}
+
 void button_init() {
     btn2.setPressedHandler([](Button2 &b) { // *NOPAD*
         timer1.resume();
+        drawLaser(1);
     });
     btn2.setReleasedHandler([](Button2 &b) { // *NOPAD*
         timer1.pause();
+        drawLaser(0);
     });
     btnadc.setPressedHandler([](Button2 &b) { // *NOPAD*
         timer1.resume();
+        drawLaser(1);
     });
     btnadc.setReleasedHandler([](Button2 &b) { // *NOPAD*
         timer1.pause();
+        drawLaser(0);
     });
 }
 /////////////////////////////////////////////////////////////////
@@ -77,8 +99,11 @@ void setup() {
     min_counter = preferences.getULong("min", 15600);
     last_stored_min_counter = min_counter;
     printCounter();
-    if (btnadc.isPressed()) { // Logic is inverted!
+    if (btnadc.isPressed()) {
         timer1.resume();
+        drawLaser(1);
+    } else {
+        drawLaser(0);
     };
 }
 
