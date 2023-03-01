@@ -120,8 +120,11 @@ void printCounter() {
         last_stored_min_counter = preferences.getULong("min");
         committed = true;
     }
-
-    String sec_counter_string = String(sec_counter) + " s";
+// Seconds since tube installation
+//    String sec_counter_string = String(sec_counter) + " s";
+// Seconds since reset
+    String sec_counter_string = String(timer1.counter()) + " s";
+// Minutes since tube installation
     String min_counter_string = String(sec_counter / 60) + " min";
     Serial.println(sec_counter_string);
 
