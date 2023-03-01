@@ -9,3 +9,9 @@ arduino-cli lib install TFT_eSPI
 arduino-cli lib install Button2
 # https://github.com/sstaub/TickTwo
 arduino-cli lib install TickTwo
+# https://github.com/Bodmer/TJpg_Decoder
+arduino-cli lib install TJpg_Decoder
+# https://github.com/lorol/LITTLEFS
+arduino-cli lib install LittleFS_esp32
+# it seems TJpg_Decoder expects LittleFS_esp32 include file to be named LittleFS.h while it's LITTLEFS.h
+sed -i '0,/LittleFS/{s/LittleFS/LITTLEFS/}' ~/Arduino/libraries/TJpg_Decoder/src/TJpg_Decoder.h
