@@ -122,6 +122,7 @@ void setup() {
     digitalWrite(ADC_EN, HIGH);
 
     tft.init();
+    digitalWrite(TFT_BL, LOW);
 
 // For Jpeg Boot logo:
 #ifdef USE_DMA
@@ -137,6 +138,7 @@ void setup() {
     tft.startWrite();
     TJpgDec.drawJpg(0, 0, bootlogo, sizeof(bootlogo));
     tft.endWrite();
+    digitalWrite(TFT_BL, HIGH);
     delay(2000);
 
 
