@@ -16,7 +16,7 @@ TickTwo timer1(printCounter, 1000, 0, MILLIS);
 #define ADC_PIN             34
 #define BUTTON_1            35
 #define BUTTON_2            0
-#define BUTTON_ADC          36
+#define BUTTON_ADC          27
 
 TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
 TFT_eSprite img = TFT_eSprite(&tft);  // Create Sprite object "img" with pointer to "tft" object
