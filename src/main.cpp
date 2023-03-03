@@ -116,7 +116,6 @@ unsigned long last_stored_min_counter = 0;
 void setup() {
     preferences.begin("otamat", false);
     Serial.begin(115200);
-    Serial.println("Start");
     timer1.start();
     timer1.pause();
     /*
@@ -140,7 +139,6 @@ void setup() {
     // Get the width and height in pixels of the jpeg if you wish:
     uint16_t w = 0, h = 0;
     TJpgDec.getJpgSize(&w, &h, bootlogo, sizeof(bootlogo));
-    Serial.print("Width = "); Serial.print(w); Serial.print(", height = "); Serial.println(h);
     tft.startWrite();
     TJpgDec.drawJpg(0, 0, bootlogo, sizeof(bootlogo));
     tft.endWrite();
@@ -168,7 +166,6 @@ void setup() {
 }
 
 void printCounter() {
-    Serial.print("Counter ");
     unsigned long sec_counter = timer1.counter() + (min_counter * 60);
     int xpos = tft.width() / 2; // Half the screen width
     int ypos = 0;
@@ -186,7 +183,6 @@ void printCounter() {
     String sec_counter_string = String(timer1.counter()) + " s";
 // Minutes since tube installation
     String min_counter_string = String(sec_counter / 60) + " min";
-    Serial.println(sec_counter_string);
 
     ypos = 10;
     tft.drawString(sec_counter_string, xpos, ypos, GFXFF);
