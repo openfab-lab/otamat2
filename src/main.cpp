@@ -58,7 +58,9 @@ bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t* bitmap)
 
 //Button2 btn1(BUTTON_1);
 Button2 btn2(BUTTON_2);
-Button2 btnadc(BUTTON_ADC);
+// We keep using activeLow=true so an inactive laser is seen as "pressed" and
+// the debounce algorithm will keep the signal "released" as soon as there is a PWM, even with very small duty cycle
+Button2 btnadc(BUTTON_ADC, INPUT_PULLDOWN, true);
 char buff[512];
 int vref = 1100;
 
