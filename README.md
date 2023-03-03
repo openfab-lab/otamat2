@@ -2,9 +2,15 @@
 ## Introduction
 This project is a counter to monitor usage of a CO2 laser.
 The principle is to count time when the laser is firing, but not when the head is just moving around.
+
+## Monitoring laser activity
 Laser is controlled by a 5V TTL signal at 1 kHz PWM modulated.
-We use a button library and its intrinsic debouncing algorithm to know if the laser is firing or not, without being bothered by low PWM duty cycles.
-Callbacks linked to button pressed/released will resume/pause a timer.
+We use a button library and its intrinsic debouncing algorithm to know if the laser is firing or not, without being bothered by low PWM duty cycles (it's stable even with a PWM duty cycle of 0.5%).
+
+There is a little trick: the debouncing algorithm considers the button as released as soon as the input indicates it, but it considers it's a valid press only if pressed continuously for 50 ms. And physical buttons are pulled up by a resistor and connected to ground when pressed. So we will keep that logic for the laser PWM: it will constantly be seen as pressed (=off) but as soon as a PWM pulse is seen, it will be considered as released (=firing) and will return to pressed state only if the PWM has completely stopped for the last 50 ms. We add to the laser "button" an internal pull-down when we declare it as ESP32 is featuring pull-downs, so the counter is stopped when there is no input connected.
+
+## Timers
+Callbacks linked to button pressed/released will pause/resume a timer.
 The timer will call a callback every second to update the display.
 When the timer reaches one full minute, its value (in minutes) is written to EEPROM. We don't write more ofter, otherwise it would wear the EEPROM.
 ## Board
@@ -26,7 +32,7 @@ It is based on an Espressif 32 aka ESP32, integrating Wi-Fi and Bluetooth.
 
 ## GPIO 5V tolerant?
 
-We connect directly the 5V TTL of the [Openbuilds BlackBox toolhead](https://docs.openbuilds.com/doku.php?id=docs:blackbox-4x:connect-3-wire-laser) PWM pin to pin 36 of the TTGO.
+We connect directly the 5V TTL of the [Openbuilds BlackBox toolhead](https://docs.openbuilds.com/doku.php?id=docs:blackbox-4x:connect-3-wire-laser) PWM pin to pin 27 of the TTGO.
 
 This should be fine as per https://www.letscontrolit.com/forum/viewtopic.php?t=8845
 
