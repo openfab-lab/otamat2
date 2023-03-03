@@ -58,7 +58,7 @@ bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t* bitmap)
 
 //Button2 btn1(BUTTON_1);
 Button2 btn2(BUTTON_2);
-Button2 btnadc(BUTTON_ADC, INPUT_PULLDOWN, false);
+Button2 btnadc(BUTTON_ADC);
 char buff[512];
 int vref = 1100;
 
@@ -86,12 +86,12 @@ void button_init() {
         timer1.pause();
         drawLaser(0);
     });
-    btnadc.setPressedHandler([](Button2 &b) { // *NOPAD*
-        timer1.resume();
+    btnadc.setReleasedHandler([](Button2 &b) { // *NOPAD*
+        timer1.resume(); // logic is inverted!
         drawLaser(1);
     });
-    btnadc.setReleasedHandler([](Button2 &b) { // *NOPAD*
-        timer1.pause();
+    btnadc.setPressedHandler([](Button2 &b) { // *NOPAD*
+        timer1.pause();  // logic is inverted!
         drawLaser(0);
     });
 }
@@ -153,7 +153,7 @@ void setup() {
     min_counter = preferences.getULong("min", 15600);
     last_stored_min_counter = min_counter;
     printCounter();
-    if (btnadc.isPressed()) {
+    if (! btnadc.isPressed()) { // logic is inverted!
         timer1.resume();
         drawLaser(1);
     } else {
