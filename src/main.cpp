@@ -21,38 +21,37 @@ TickTwo timer1(printCounter, 1000, 0, MILLIS);
 
 TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
 TFT_eSprite img = TFT_eSprite(&tft);  // Create Sprite object "img" with pointer to "tft" object
-                                      // the pointer is used by pushSprite() to push it onto the TFT
+// the pointer is used by pushSprite() to push it onto the TFT
 
 // For Jpeg Boot logo:
 #define USE_DMA
 #include "bootlogo.h"
 #include <TJpg_Decoder.h>
 #ifdef USE_DMA
-  uint16_t  dmaBuffer1[16*16]; // Toggle buffer for 16*16 MCU block, 512bytes
-  uint16_t  dmaBuffer2[16*16]; // Toggle buffer for 16*16 MCU block, 512bytes
-  uint16_t* dmaBufferPtr = dmaBuffer1;
-  bool dmaBufferSel = 0;
+uint16_t  dmaBuffer1[16 * 16]; // Toggle buffer for 16*16 MCU block, 512bytes
+uint16_t  dmaBuffer2[16 * 16]; // Toggle buffer for 16*16 MCU block, 512bytes
+uint16_t *dmaBufferPtr = dmaBuffer1;
+bool dmaBufferSel = 0;
 #endif
 // This next function will be called during decoding of the jpeg file to render each
 // 16x16 or 8x8 image tile (Minimum Coding Unit) to the TFT.
-bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t* bitmap)
-{
-  if ( y >= tft.height() ) return 0;
+bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t *bitmap) {
+    if (y >= tft.height()) return 0;
 #ifdef USE_DMA
-  // Double buffering is used, the bitmap is copied to the buffer by pushImageDMA() the
-  // bitmap can then be updated by the jpeg decoder while DMA is in progress
-  if (dmaBufferSel) dmaBufferPtr = dmaBuffer2;
-  else dmaBufferPtr = dmaBuffer1;
-  dmaBufferSel = !dmaBufferSel; // Toggle buffer selection
-  //  pushImageDMA() will clip the image block at screen boundaries before initiating DMA
-  tft.pushImageDMA(x, y, w, h, bitmap, dmaBufferPtr); // Initiate DMA - blocking only if last DMA is not complete
-  // The DMA transfer of image block to the TFT is now in progress...
+    // Double buffering is used, the bitmap is copied to the buffer by pushImageDMA() the
+    // bitmap can then be updated by the jpeg decoder while DMA is in progress
+    if (dmaBufferSel) dmaBufferPtr = dmaBuffer2;
+    else dmaBufferPtr = dmaBuffer1;
+    dmaBufferSel = !dmaBufferSel; // Toggle buffer selection
+    //  pushImageDMA() will clip the image block at screen boundaries before initiating DMA
+    tft.pushImageDMA(x, y, w, h, bitmap, dmaBufferPtr); // Initiate DMA - blocking only if last DMA is not complete
+    // The DMA transfer of image block to the TFT is now in progress...
 #else
-  // Non-DMA blocking alternative
-  tft.pushImage(x, y, w, h, bitmap);  // Blocking, so only returns when image block is drawn
+    // Non-DMA blocking alternative
+    tft.pushImage(x, y, w, h, bitmap);  // Blocking, so only returns when image block is drawn
 #endif
-  // Return 1 to decode next block.
-  return 1;
+    // Return 1 to decode next block.
+    return 1;
 }
 
 
@@ -66,18 +65,18 @@ char buff[512];
 int vref = 1100;
 
 void drawLaser(bool on) {
-  // Size of sprite
-  #define IWIDTH  20
-  #define IHEIGHT 20
-  img.setColorDepth(8);
-  img.createSprite(IWIDTH, IHEIGHT);
-  img.fillSprite(TFT_NAVY);
-  img.fillSmoothCircle( IWIDTH/2, IHEIGHT/2, IWIDTH/2-2, on ? TFT_RED : TFT_BLACK);
-  // Push sprite to TFT screen CGRAM at coordinate x,y (top left corner)
-  // All navy pixels will not be drawn hence will show as "transparent"
-  img.pushSprite(5, 5, TFT_NAVY);
-  // Delete sprite to free up the RAM
-  img.deleteSprite();
+    // Size of sprite
+#define IWIDTH  20
+#define IHEIGHT 20
+    img.setColorDepth(8);
+    img.createSprite(IWIDTH, IHEIGHT);
+    img.fillSprite(TFT_NAVY);
+    img.fillSmoothCircle(IWIDTH / 2, IHEIGHT / 2, IWIDTH / 2 - 2, on ? TFT_RED : TFT_BLACK);
+    // Push sprite to TFT screen CGRAM at coordinate x,y (top left corner)
+    // All navy pixels will not be drawn hence will show as "transparent"
+    img.pushSprite(5, 5, TFT_NAVY);
+    // Delete sprite to free up the RAM
+    img.deleteSprite();
 }
 
 void button_init() {
